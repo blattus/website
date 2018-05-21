@@ -22,5 +22,5 @@ To learn more about the things I like, feel free to check out my:
 - [Github](https://github.com/blattus)
 - [Twitter](https://twitter.com/blattus)
 - [LinkedIn](https://www.linkedin.com/in/roshansadanani/)
-- [Music](last.fm/user/blattus)
+- [Last.fm](last.fm/user/blattus)
 - [Goodreads](https://www.goodreads.com/user/show/3406351-roshan-sadanani)
