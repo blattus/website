@@ -5,24 +5,26 @@ date:   2019-05-28 19:50:59 -0400
 categories: python
 ---
 
-I've lived in San Francisco for a little over 3 years and have "recently" been looking for my own apartment. I say "recently" beacuse in reality I've obsessively watched apartment pricing and availability for the last few months. Typically this invoves browsing listings on Craigslist and sometimes Padmapper, Hotpads, and Zillow [0].
+I've lived in San Francisco for a little over 3 years and have "recently" been looking for my own apartment. The process is more difficult than it should be -- in addition to high rent prices, apartments move _extremely_ quickly: people bring application packets + credit checks to showings, offer multiple months of rent up front, and in some cases offer to pay more than the listed rental price. 
 
-During this search I've had the added luxury of not needing to move quickly. I live in a great apartment and neighborhood with some awesome roommates on a month-to-month lease. Moving has been about finding my own place, and I've hoped that having the flexiblity of time will make it easier to find a deal...whatever that means today in San Francisco.
+I've looked through apartment listings for the past few months, which typically this invoves browsing listings on Craigslist and sometimes Padmapper, Hotpads, and Zillow [0]. During this search I've had the added luxury of not needing to move quickly. I live in a great apartment and neighborhood with some awesome roommates on a month-to-month lease. Moving has been about finding my own place, and I've hoped that having the flexiblity of time will make it easier to find a deal...whatever that means today in San Francisco.
 
 However navigating Craigslist quickly got onerous. I tried copying + pasting listings into a google sheet and flagging some for follow-up but found myself needing to dedicate time to searching for apartments, deciding which were worth pursuing, and reaching out to make an introduction. 
 
-I recently discovered (python-craigslist)[https://github.com/juliomalegria/python-craigslist] and ventured that if I could programmatically access Craigslist data I could at least provide myself with a nice, passive way to view apartment listings, and at best accelerate my search and beat the tens of people who apply for each unit (all while gettting to work on a fun python project!)
+I recently discovered [python-craigslist](https://github.com/juliomalegria/python-craigslist) and figured that if I could programmatically access Craigslist data I could at least provide myself with a nice, passive way to view apartment listings, and at best accelerate my search and beat the tens of people who apply for each unit (all while gettting to work on a fun python project!)
+
+A lot of credit goes to [this post on dataquest.io](https://www.dataquest.io/blog/apartment-finding-slackbot/) which helped me think through the steps to get something like this up and running.
 
 # Requirements
 
-To start off, I made a few assumptions based on my experience searching for apartments and things I wanted to bulid to make it easier:
+A few constraints and assumptions on how I wanted to tackle this project:
 - I would focus on using Craigslist as the source of listing data
-- I want to live in some specific neighborhoods in San Francisco and should bound the search to apartments in those locations
+- I want to live in some specific neighborhoods in San Francisco so I limited the search to apartments in those locations
 - I'd really like some way to view the results at my desk or on mobile. I've used Discord as a notification engine for some apps in the past, and thought it would be fun to use it for this too [1]
 
 # Building Things
 
-First off a lot of credit goes to (this post on dataquest.io)[https://www.dataquest.io/blog/apartment-finding-slackbot/] which helped me think through the steps to get something like this up and running. That said, I decided to design my own approach and write my own code so this could also be a educational experience for me. For context, I've been working on learning Python and have realized that projects like this one (read: something I'll use) are great motivation. 
+I decided I'd prefer to design own approach and write my own code (versus copying + pasting from the above links) so this could be a educational experience for me. For context, I've been working on learning Python and have found that the best motivation to keep going is making things I'll really use.  
 
 To start, I  outlined the following rough steps:
 1. Get data from Craigslist
@@ -65,9 +67,9 @@ Notably, the listing data includes location data (lat/long) if the person who cr
 
 # Mapping the listings
 
-I came across the (Mapbox)[https://www.mapbox.com] API documentation a few weeks ago and filed it away in my list of "products I'd like to play with someday". The timing was serendipitious as I realized I could use the location data from each apartment listing + Mapbox to generate a map, which makes it _much_ easier to see where an apartment is at a glance. Unfortunately the Craigslist map data isn't perfect or is sometimes missing, but this still seemed better than having to click on individual links. While learning about Mapbox I wasn't quite able to decipher the specifics of their free tier but the numbers mentioned on https://www.mapbox.com/pricing/ seemed much higher than I would need for this project.
+I came across the [Mapbox](https://www.mapbox.com) API documentation a few weeks ago and filed it away in my ever increasing list of "products I'd like to play with someday". The timing was serendipitous as I realized I could use the location data from each apartment listing + Mapbox to generate a map, which makes it _much_ easier to see where an apartment is at a glance. Unfortunately the Craigslist map data isn't perfect or is sometimes missing, but this still seemed better than having to click on individual links [2]. 
 
-Mapbox has a (python package)[https://github.com/mapbox/mapbox-sdk-py] that makes this straightforward to implement. After browsing the API docs a bit I noticed I could have just constructed a URL with the appropriate parameters and been done with it, but I ended up using the python package because of how easy it was to set up (and how as a result I didn't have to deal with URL character + formatting issues)
+Mapbox has a [python package](https://github.com/mapbox/mapbox-sdk-py) that makes this straightforward to implement. After browsing the API docs a bit I noticed I could have just constructed a URL with the appropriate parameters and been done with it, but I ended up using the python package because of how easy it was to set up (and how as a result I didn't have to deal with URL character + formatting issues)
 
 ```python
 import config
@@ -103,9 +105,9 @@ For example, here's a map of San Francisco generated using a longitude of `-122.
 
 # Posting to Discord
 
-Discord makes it super easy to set up alerts using [webhooks](https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks) and I was surprised at how customizable an individual notification can be. I found this (Discord webhooks guide)[https://birdie0.github.io/discord-webhooks-guide/] invaluable when designing the formatting for the notification.
+Discord makes it super easy to set up alerts using [webhooks](https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks) and I was surprised at how customizable an individual notification can be. I found this [Discord webhooks guide](https://birdie0.github.io/discord-webhooks-guide/) invaluable when designing the formatting for the notification.
 
-Once I set up a webhook endpoint, I used (Postman)[https://www.getpostman.com/] to start testing and customizing colors, text formatting, etc. I usually default to `cURL` or `requests` for API testing but the ease of edit --> make request made this a great use case for Postman. 
+Once I set up a webhook endpoint, I used [Postman](https://www.getpostman.com/) to start testing and customizing colors, text formatting, etc. I usually default to `cURL` or `requests` for API testing but the ease of edit --> make request made this a great use case for Postman. 
 
 In the end I settled on the following raw JSON for the webhook endpoint:
 
@@ -142,7 +144,7 @@ And the result:
 
 ![Discord example](/assets/discord-notification-example.png)
 
-On colors -- I thought it would be fun to change the color of the Discord notification to add an additional visual indicator when glancing through the list. I went with green/yellow/red for "good"/"stretch"/"💸😭" depending on where a given listing falls within my desired price range. I thought about further restricting the min and max prices when getting listing data but wanted to give myself a chance to see apartments _outside_ of my budget, just in case there's a dream apartment out there that I'd regret passing over. I added the specific values to `settings.py`, and used (SpyColor)[https://www.spycolor.com] to convert hex color values to the decimal values required by Discord's API. 
+On colors -- I thought it would be fun to change the color of the Discord notification to add an additional visual indicator when glancing through the list. I went with green/yellow/red for "good"/"stretch"/"💸😭" depending on where a given listing falls within my desired price range. I thought about further restricting the min and max prices when getting listing data but wanted to give myself a chance to see apartments _outside_ of my budget, just in case there's a dream apartment out there that I'd regret passing over. I added the specific values to `settings.py`, and used [SpyColor](https://www.spycolor.com) to convert hex color values to the decimal values required by Discord's API. 
 
 ```python
 # settings.py
@@ -164,13 +166,13 @@ After checking for which color to use, sending the notification is as easy as us
 
 # Duplicate detection, decision making, and logging
 
-To avoid duplicates I decided to save each retrieved listing to a database with the Craigslist listing ID as a key. I've worked with `sqlite` before and created a `databases.py` helper script that has functions for inserting, retrieving, and updating records. When I retrieve listings I first check the listing ID against the database to see if there's a duplicate. If there is, the listing is skipped (with the assumption that it was previously processed). 
+To avoid duplicates I decided to save each retrieved listing to a database with the Craigslist listing ID as a key. I used `sqlite` with the built-in `sqlite3` python module and created a `databases.py` helper script that has functions for inserting, retrieving, and updating records. When I retrieve listings I first check the listing ID against the database to see if there's a duplicate. If there is, the listing is skipped (with the assumption that it was previously processed). 
 
-Next, while I'm _intersted_ in seeing apartments from across the city I do have some neighborhoods that I'd rather not move to for commute or other reasons. I built a rudimentary filter by specifying a `neighborhood_blacklist` in a new `settings.py` file [2].
+Next, while I'm _interested_ in seeing apartments from across the city I do have some neighborhoods that I'd rather not move to for commute or other reasons. I built a rudimentary filter by specifying a `neighborhood_blacklist` in a new `settings.py` file [3].
 
 This allowed me to be a bit more selective with my notifications and came with an extra benefit -- it became quickly apparent that filtering based on neighborhood is far from perfect since the details are provided by the person who created the listing. These data are often inaccurate (or flat out wrong). To hedge against this I decided on the following approach:
 * Store each listing
-* If the listing's provided neighborhood is in the blacklist, don't notify me to avoid the noise
+* If the listing provided neighborhood is in the blacklist, don't notify me to avoid the noise
 * Otherwise, notify and also update the listing record in the database to indicate that a message was sent
 * Periodically manually review the "un-notified" listings to see if my filtering is too aggressive and adjust to taste
 
@@ -191,9 +193,9 @@ else:
 
 # Operationalizing
 
-I ran the script a few times scoped to different price ranges and verified everything was working as expected. Just in case, I also added some light logging at this point to help with future debugging. The only thing remianing was to schedule the script to run automatically.
+I ran the script a few times scoped to different price ranges and verified everything was working as expected. Just in case, I also added some light logging at this point to help with future debugging. The only thing remaining was to schedule the script to run automatically.
 
-Separately from this project I've been working on setting up a container / VM selfhosting environment on my own hardware. This project was a great candidate to host on my (Proxmox)[https://www.proxmox.com/en/] setup. There were a few ways to automate this but in the end I settled for hosting the code in an LXC container along with a cron job to run it periodically [3]. 
+Separately from this project I've been working on setting up a container / VM selfhosting environment on my own hardware. This project was a great candidate to host on my [Proxmox](https://www.proxmox.com/en/) setup. There were a few ways to automate this but in the end I settled for hosting the code in an LXC container along with a cron job to run it periodically [4]. 
 
 I'll spare the specifics of running this in my lab, but at a high level this included:
 * spinning up a new container on my Proxmox host
@@ -207,7 +209,7 @@ I'll spare the specifics of running this in my lab, but at a high level this inc
 1 * * * * python3 /path/to/oikos.py
 ```
 
-I found (crontab guru)[https://crontab.guru/] to be a helpful resource in figuring out how to schedule cron jobs, especially for people like me who are somewhat new to this. I could have alternatively deployed this to a DigitalOcean box or Heroku but this ended up being just as easy (and free!)
+I found [crontab guru](https://crontab.guru/) to be a helpful resource in figuring out how to schedule cron jobs, especially for people like me who are somewhat new to this. I could have alternatively deployed this to a DigitalOcean box or Heroku but this ended up being just as easy (and free!)
 
 And that's it! I now get hourly, cross-platform notifications for new apartment listings around San Francisco in my price range, with some nice maps and color-coding to make it easy to filter things visually. I've also started tagging listings in Discord by reacting with an emoji if I want to follow up. This has already been a huge help in my search: it's easy to browse Discord for listings that I previously flagged for follow-up when I have some downtime. I don't have to deal with having 10s of browser tabs open when searching for apartments, and I've started building a database of listing data that I can hopefully leverage to have a better understanding of housing market trends (and what a really is a "deal").
 
@@ -215,7 +217,7 @@ And that's it! I now get hourly, cross-platform notifications for new apartment 
 
 # What's next 
 
-The code for this project is available on (GitHub)[https://#] in case you find it useful. Python 3.6+ is required. I'd really appreciate any comments on the code and structure!
+The code for this project is available on [GitHub](https://github.com/blattus/oikos) in case you find it useful. Python 3.6+ is required. I'd really appreciate any comments on the code and structure!
 
 ## Follow-ups
 * Some Craigslist listings can be fake (and it's easy to tell which when reading the listing details). It might be worth adding some logic to either (a) detect likely fake posts or (b) adding support for a "blacklist" feature in Discord that lets me mark a listing as fake.
@@ -227,6 +229,8 @@ The code for this project is available on (GitHub)[https://#] in case you find i
 
 [1] I evaluated a few different notification services prior to deciding on Discord and that process is likely worth its own discussion. In the end I chose Discord for two reasons: unlimited integrations (unlike Slack) and a highly customizable, very simple webhook API.
 
-[2] I did this to ensure secrets remained isolated in `config.py` while also creating a single place to edit variables I might want to modify later. I'm _not_ sure if this is the best or recommended approach for settings + configuration management but it worked for me.
+[2] While learning about Mapbox I wasn't quite able to decipher the specifics of their free tier but the numbers mentioned on https://www.mapbox.com/pricing/ seemed much higher than I would need for this project.
 
-[3] A post on my homelab setup is coming soon!
+[3] I did this to ensure secrets remained isolated in `config.py` while also creating a single place to edit variables I might want to modify later. I'm _not_ sure if this is the best or recommended approach for settings + configuration management but it worked for me.
+
+[4] A post on my homelab setup is coming soon!
