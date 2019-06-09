@@ -1,0 +1,57 @@
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>{{ site.description }}</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <!-- <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" href="{{ site.baseurl }}/">
+      <i class="fa fa-home">Home</i>
+    </a>
+
+    {% comment %}
+      The code below dynamically generates a sidebar nav of pages with
+      `layout: page` in the front-matter. See readme for usage.
+
+      author's note: I've commented this out for now in favor of manual links (and icons)
+      keeping this in case it's needed later
+    {% endcomment %}
+
+    {% assign pages_list = site.pages | sort:"url" %}
+    {% for node in pages_list %}
+      {% if node.title != null %}
+        {% if node.layout == "page" %}
+          <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url }}">{{ node.title }}</a>
+        {% endif %}
+      {% endif %}
+    {% endfor %} -->
+
+    <a class="sidebar-nav-item" href="/">
+      <i class="fa fa-home">&nbsp;</i>
+      Home
+    </a>
+    <a class="sidebar-nav-item" href="/posts">
+      <i class="fa fa-pencil">&nbsp;</i>
+      Posts
+    </a>
+    <a class="sidebar-nav-item" href="https://github.com/blattus/website">
+      <i class="fa fa-github">&nbsp;</i>
+      This site on Github
+    </a>
+  </nav>
+
+  <!-- social media icons -->
+  <div class="sidebar-item">
+    <a class="fa fa-twitter" href="{{ site.author.twitter }}">&nbsp;&nbsp;</a>
+    <a class="fa fa-github" href="{{ site.author.github }}">&nbsp;&nbsp;</a>
+    <a class="fa fa-key" href="{{ site.author.keybase }}">&nbsp;&nbsp;</a>
+    <a class="fa fa-lastfm" href="{{ site.author.lastfm }}">&nbsp;&nbsp;</a>
+    <a class="fa fa-book" href="{{ site.author.goodreads }}">&nbsp;&nbsp;</a>
+    <a class="fa fa-film" href="{{ site.author.trakt }}">&nbsp;&nbsp;</a>
+  </div>
+
+</div>
