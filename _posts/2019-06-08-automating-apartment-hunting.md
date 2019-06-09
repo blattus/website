@@ -6,7 +6,7 @@ date:   2019-06-08
 
 I've lived in San Francisco for a little over 3 years and have "recently" been looking for my own apartment. The process is more difficult than it should be -- in addition to high rent prices, apartments move _extremely_ quickly: people bring application packets + credit checks to showings, offer multiple months of rent up front, and in some cases offer to pay more than the listed rental price. 
 
-I've looked through apartment listings for the past few months, which typically this invoves browsing listings on Craigslist and sometimes Padmapper, Hotpads, and Zillow [0]. During this search I've had the added luxury of not needing to move quickly. I live in a great apartment and neighborhood with some awesome roommates on a month-to-month lease. Moving has been about finding my own place, and I've hoped that having the flexiblity of time will make it easier to find a deal...whatever that means today in San Francisco.
+I've looked through apartment listings for the past few months, which typically includes browsing listings on Craigslist and sometimes Padmapper, Hotpads, and Zillow [0]. During this search I've had the added luxury of not needing to move quickly. I live in a great apartment and neighborhood with some awesome roommates on a month-to-month lease. Moving has been about finding my own place, and I've hoped that having the flexiblity of time will make it easier to find a deal...whatever that means today in San Francisco.
 
 However navigating Craigslist quickly got onerous. I tried copying + pasting listings into a google sheet and flagging some for follow-up but found myself needing to dedicate time to searching for apartments, deciding which were worth pursuing, and reaching out to make an introduction. 
 
